@@ -7,17 +7,18 @@
   --brand-primary-light: #ccff33; /* 라임 그린 라이트 */
   --brand-primary-foreground: #0f172a; /* 브랜드 컬러 배경 위 텍스트 색상 */
 
-  /* 기본 컬러 */
-  --background: #000000; /* 검은색 (gradient-wave 배경) */
-  --foreground: #ffffff; /* 흰색 */
+  /* 기본 컬러 (라이트 중성 셸 · Squarespace 톤) */
+  --background: #ffffff; /* 순백 단색 배경 */
+  --background-elevated: #f6f6f6; /* 카드/살짝 떠 있는 면 */
+  --foreground: #0a0a0a; /* near-black 본문 */
   --primary: var(--brand-primary);
   --primary-foreground: #0f172a; /* 브랜드 컬러 배경 위 텍스트 색상 */
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
-  --muted: #f8fafc; /* 연한 회색 배경 */
-  --muted-foreground: rgba(255, 255, 255, 0.8); /* 반투명 흰색 텍스트 */
-  --accent: #f1f5f9; /* 액센트 배경 */
-  --accent-foreground: #0f172a;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #0a0a0a;
+  --muted: rgba(0, 0, 0, 0.04); /* 연한 오버레이 배경 */
+  --muted-foreground: rgba(0, 0, 0, 0.58); /* 보조 문구 */
+  --accent: rgba(0, 0, 0, 0.06); /* 액센트 배경 */
+  --accent-foreground: #0a0a0a;
 
   /* 상태 컬러 */
   --success: #bbff00; /* 성공 */
@@ -28,8 +29,8 @@
   --destructive-foreground: #ffffff;
 
   /* UI 컬러 */
-  --border: #e2e8f0; /* 테두리 */
-  --input: #e2e8f0;
+  --border: rgba(0, 0, 0, 0.12); /* 테두리 */
+  --input: rgba(0, 0, 0, 0.12);
   --ring: var(--brand-primary); /* 포커스 링 */
   --radius: 0.5rem;
 }
@@ -39,7 +40,7 @@
 }
 
 body {
-  background: #ffffff;
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   font-feature-settings: 'rlig' 1, 'calt' 1;
@@ -111,16 +112,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.35);
 }
 
 /* bg-muted 클래스 직접 정의 */
@@ -178,3 +179,4 @@ body {
 .font-bitcount {
   font-family: 'Bitcount Grid Single', monospace;
 }
+

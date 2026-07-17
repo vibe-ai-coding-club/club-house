@@ -18,7 +18,11 @@ export function Header() {
     setMounted(true)
   }, [])
 
-  const isActive = (href: string) => mounted && pathname === href
+  const isActive = (href: string) => {
+    if (!mounted) return false
+    if (href === '/') return pathname === '/'
+    return pathname === href || pathname.startsWith(`${href}/`)
+  }
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -33,44 +37,56 @@ export function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="sticky top-0 z-50 w-full border-b border-border"
+      className="sticky top-0 z-50 w-full border-b border-border bg-white"
     >
       <div className="flex px-4 items-center justify-between h-16">
         <Link href="/" className="hover:text-muted-foreground transition-colors">
           <Logo />
         </Link>
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-6">
           {mainNav
             .filter((item) => item.title !== 'Join')
-            .map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  'text-sm font-medium transition-colors',
-                  'hover:text-brand-primary',
-                  isActive(item.href)
-                    ? 'text-brand-primary font-semibold'
-                    : 'text-white/80 font-medium'
-                )}
-              >
-                {item.title}
-              </Link>
-            ))}
-          <Button asChild>
+            .map((item) =>
+              item.external ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
+                >
+                  {item.title}
+                </a>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    'text-sm font-medium transition-colors',
+                    'hover:text-foreground',
+                    isActive(item.href)
+                      ? 'text-foreground font-semibold'
+                      : 'text-foreground/70 font-medium'
+                  )}
+                >
+                  {item.title}
+                </Link>
+              )
+            )}
+          <Button asChild variant="cta" size="cta">
             <a
               href="https://discord.gg/JNZYWnSuK8"
               target="_blank"
               rel="noopener noreferrer"
             >
-              스터디 함께 듣기
+              커뮤니티 참여하기
             </a>
           </Button>
         </nav>
         <div className="md:hidden">
           <button
             onClick={toggleMobileMenu}
-            className="text-white/80 hover:text-brand-primary transition-colors"
+            className="text-foreground/70 hover:text-foreground transition-colors"
             aria-label="메뉴 열기"
           >
             {isMobileMenuOpen ? (
@@ -107,30 +123,43 @@ export function Header() {
           <nav className="flex flex-col px-4 py-4 space-y-4">
             {mainNav
               .filter((item) => item.title !== 'Join')
-              .map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={closeMobileMenu}
-                  className={cn(
-                    'text-sm font-medium transition-colors py-2',
-                    'hover:text-brand-primary',
-                    isActive(item.href)
-                      ? 'text-brand-primary font-semibold'
-                      : 'text-white/80 font-medium'
-                  )}
-                >
-                  {item.title}
-                </Link>
-              ))}
-            <Button asChild className="w-full">
+              .map((item) =>
+                item.external ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={closeMobileMenu}
+                    className="py-2 text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
+                  >
+                    {item.title}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={closeMobileMenu}
+                    className={cn(
+                      'text-sm font-medium transition-colors py-2',
+                      'hover:text-foreground',
+                      isActive(item.href)
+                        ? 'text-foreground font-semibold'
+                        : 'text-foreground/70 font-medium'
+                    )}
+                  >
+                    {item.title}
+                  </Link>
+                )
+              )}
+            <Button asChild variant="cta" size="cta" className="w-full">
               <a
                 href="https://discord.gg/JNZYWnSuK8"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={closeMobileMenu}
               >
-                스터디 참관하기
+                커뮤니티 참여하기
               </a>
             </Button>
           </nav>

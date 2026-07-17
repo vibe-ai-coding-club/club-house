@@ -46,7 +46,7 @@ export default function ArtistArchivePage() {
         </motion.div>
 
         {/* 시 작품들 */}
-        <div className="max-w-4xl mx-auto">
+        <div>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {poems.map((poem, index) => (
               <motion.div

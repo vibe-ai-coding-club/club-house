@@ -66,7 +66,7 @@ function ArchiveContent() {
             Archive
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Early AI Club의 모든 활동과 결과물을 확인해보세요
+            Vibe Coding Club의 모든 활동과 결과물을 확인해보세요
           </p>
         </motion.div>
 

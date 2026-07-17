@@ -9,5 +9,6 @@ export const siteConfig: SiteConfig = {
     twitter: "https://twitter.com/earlydevclub",
     github: "https://github.com/vibe-ai-coding-club",
     linkedin: "https://www.linkedin.com/groups/17438022",
+    instagram: "https://www.instagram.com/vibe.coding.club/",
   },
 }

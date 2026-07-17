@@ -1,56 +1,60 @@
+import { FadeIn } from '@/components/ui/motion'
+import { siteConfig } from '@/config/site'
+
+const contactLinks = [
+  {
+    label: 'Email',
+    value: 'vibecodingclub.team@gmail.com',
+    href: 'mailto:vibecodingclub.team@gmail.com',
+    external: false,
+  },
+  {
+    label: 'GitHub',
+    value: '@vibe-ai-coding-club',
+    href: siteConfig.links.github,
+    external: true,
+  },
+  {
+    label: 'Instagram',
+    value: '@vibe.coding.club',
+    href: siteConfig.links.instagram,
+    external: true,
+  },
+  {
+    label: 'LinkedIn',
+    value: 'Vibe Coding Club',
+    href: siteConfig.links.linkedin,
+    external: true,
+  },
+]
+
 export function ContactSection() {
   return (
     <section>
-      <div className="text-center mb-20">
-        <div className="bg-white/10 rounded-lg p-6 max-w-2xl mx-auto">
-          <h3 className="text-lg font-semibold text-foreground mb-6">
-            운영진 상시 모집
-          </h3>
-          <p className="text-sm text-muted-foreground">
-            분야 관계없이 AI를 활용한 다양한 활동을 진행해보고 싶거나,
-            <br />
-            커뮤니티에 기여하고 싶은 분들의 참여를 기다립니다.
-          </p>
+      <FadeIn>
+        <h2 className="mb-4 text-center text-2xl font-bold leading-[1.15] tracking-tight text-foreground sm:text-3xl">
+          우리를 만나요
+        </h2>
+        <p className="mx-auto mb-12 max-w-xl text-center text-sm leading-relaxed text-muted-foreground">
+          여러 채널에서 활동 소식을 나누고 있어요.
+        </p>
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-6 text-center">
+          {contactLinks.map((link) => (
+            <div key={link.label} className="w-56">
+              <h3 className="text-lg font-semibold text-foreground">{link.label}</h3>
+              <a
+                href={link.href}
+                className="text-muted-foreground transition-colors hover:text-foreground"
+                {...(link.external
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
+              >
+                {link.value}
+              </a>
+            </div>
+          ))}
         </div>
-      </div>
-
-      <h2 className="text-xl font-bold text-foreground text-center mb-6">문의하기</h2>
-      <div className="max-w-2xl mx-auto text-center space-y-6">
-        <div>
-          <h3 className="text-lg font-semibold text-foreground">Email</h3>
-          <a
-            href="mailto:contact@earlydevclub.com"
-            className="text-brand-primary hover:text-brand-primary-dark"
-          >
-            talown@naver.com
-          </a>
-        </div>
-
-        <div>
-          <h3 className="text-lg font-semibold text-foreground">GitHub</h3>
-          <a
-            href="https://github.com/vibe-ai-coding-club"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-primary hover:text-brand-primary-dark"
-          >
-            github.com/vibe-ai-coding-club
-          </a>
-        </div>
-
-        {/* <div>
-          <h3 className="text-lg font-semibold text-black">Discord</h3>
-          <a 
-            href="https://discord.gg/your-discord-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-primary hover:text-brand-primary-dark"
-          >
-            Vibe Coding Club
-          </a>
-        </div> */}
-      </div>
+      </FadeIn>
     </section>
   )
 }
-

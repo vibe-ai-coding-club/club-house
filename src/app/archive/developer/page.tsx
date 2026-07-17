@@ -52,7 +52,7 @@ export default function DeveloperArchivePage() {
         </motion.div>
 
         {/* 프로젝트들 */}
-        <div className="max-w-6xl mx-auto">
+        <div>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, index) => (
               <motion.div
