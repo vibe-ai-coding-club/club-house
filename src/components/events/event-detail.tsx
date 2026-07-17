@@ -22,7 +22,7 @@ export function EventDetail({ event, children }: EventDetailProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <h1 className="text-4xl font-bold text-foreground font-bitcount lg:text-5xl">
+        <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-foreground lg:text-5xl">
           {event.title}
         </h1>
         <p className="mt-4 text-lg text-muted-foreground leading-relaxed">{event.summary}</p>
@@ -41,6 +41,25 @@ export function EventDetail({ event, children }: EventDetailProps) {
           </div>
         ))}
       </motion.dl>
+
+      {event.cta && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className={`mt-8 ${hasHero ? '' : 'text-center'}`}
+        >
+          <Button asChild variant="cta" size="cta">
+            <a
+              href={event.cta.href}
+              target={event.cta.external ? '_blank' : undefined}
+              rel={event.cta.external ? 'noopener noreferrer' : undefined}
+            >
+              {event.cta.label}
+            </a>
+          </Button>
+        </motion.div>
+      )}
 
       <div className="mt-12 space-y-10">
         {event.sections.map((section, index) => (
@@ -63,25 +82,6 @@ export function EventDetail({ event, children }: EventDetailProps) {
       </div>
 
       {children}
-
-      {event.cta && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          className={`mt-14 ${hasHero ? '' : 'text-center'}`}
-        >
-          <Button asChild variant="cta" size="cta">
-            <a
-              href={event.cta.href}
-              target={event.cta.external ? '_blank' : undefined}
-              rel={event.cta.external ? 'noopener noreferrer' : undefined}
-            >
-              {event.cta.label}
-            </a>
-          </Button>
-        </motion.div>
-      )}
     </div>
   )
 
@@ -101,7 +101,7 @@ export function EventDetail({ event, children }: EventDetailProps) {
                 alt={event.title}
                 width={1081}
                 height={1440}
-                className="h-auto w-full"
+                className="h-[32vh] w-full object-cover object-center lg:h-auto lg:object-contain"
               />
             </motion.div>
             {content}
