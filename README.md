@@ -48,7 +48,7 @@ npm start
 
 ## 링크
 
-- **Website**: [Vibe Coding Club](https://club-house-ehnwmdazn-da-ins-projects.vercel.app)
+- **Website**: [Vibe Coding Club](https://vibecodingclub.kr)
 - **GitHub**: [github.com/vibe-ai-coding-club/club-house](https://github.com/vibe-ai-coding-club/club-house)
 - **LinkedIn**: [Vibe Coding Club](https://www.linkedin.com/groups/17438022)
 
