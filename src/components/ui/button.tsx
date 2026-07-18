@@ -16,7 +16,7 @@ const buttonVariants = cva(
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
         // 밝은 배경 위의 기본 CTA (검정 필)
-        cta: 'rounded-none bg-black text-white hover:bg-black/85 hover:shadow-md',
+        cta: 'rounded-none bg-black text-white hover:bg-black/85 hover:shadow-md disabled:bg-black disabled:text-white',
         // 어두운 배경 위의 기본 CTA (흰색 필)
         ctaInverted: 'rounded-none bg-white text-black hover:bg-white/90 hover:shadow-md',
         // 어두운 배경 위의 보조 CTA (아웃라인)
@@ -52,7 +52,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cn(
           buttonVariants({ variant, size, className }),
-          disabled && 'bg-white/20 text-foreground opacity-50 cursor-not-allowed'
+          disabled &&
+            variant !== 'cta' &&
+            variant !== 'ctaInverted' &&
+            variant !== 'ctaOutline' &&
+            'bg-white/20 text-foreground opacity-50 cursor-not-allowed'
         )}
         ref={ref}
         disabled={disabled}

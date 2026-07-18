@@ -32,7 +32,7 @@ export function ContactSection() {
   return (
     <section>
       <FadeIn>
-        <h2 className="mb-4 text-center text-2xl font-bold leading-[1.15] tracking-tight text-foreground sm:text-3xl">
+        <h2 className="mb-4 text-center text-3xl font-bold leading-[1.15] tracking-tight text-foreground sm:text-4xl">
           우리를 만나요
         </h2>
         <p className="mx-auto mb-12 max-w-xl text-center text-sm leading-relaxed text-muted-foreground">

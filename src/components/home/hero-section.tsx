@@ -26,7 +26,7 @@ type FloatingObject = {
 const objects: FloatingObject[] = [
   {
     src: '/images/obj-blob-w.png',
-    position: 'left-[-12%] w-72 sm:w-[26rem] lg:w-[42rem]',
+    position: 'left-[-10%] w-[40%]',
     offset: '-mt-20 lg:-mt-32',
     y: [0, 22, 0],
     rotate: [0, 4, 0],
@@ -35,7 +35,7 @@ const objects: FloatingObject[] = [
   },
   {
     src: '/images/obj-spiral-w.png',
-    position: 'right-[-12%] w-64 sm:w-96 lg:w-[36rem]',
+    position: 'right-[-10%] w-[40%]',
     offset: 'mt-20 lg:mt-32',
     baseRotate: 'rotate-45',
     y: [0, -20, 0],

@@ -23,10 +23,14 @@ export default function HomePage() {
         <ContactSection />
       </div>
 
-      {/* 운영진 상시 모집 ~ 이하 검정 배경 섹션 (full-bleed) */}
+      {/* 운영진 상시 모집 (흰 배경, Meet Us와 같은 커뮤니티 존) */}
+      <div className="w-full px-4 pt-16 pb-28">
+        <RecruitPanel />
+      </div>
+
+      {/* 후원 문의 (검정 클로징) */}
       <div className="bg-black text-white">
-        <div className="flex w-full flex-col gap-40 px-4 py-24">
-          <RecruitPanel />
+        <div className="w-full px-4 py-24">
           <SponsorSection />
         </div>
       </div>

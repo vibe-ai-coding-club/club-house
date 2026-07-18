@@ -118,7 +118,7 @@ export const events: ClubEvent[] = [
   },
   {
     slug: 'second-half',
-    title: '하반기 행사',
+    title: '공개 예정',
     tagline: '준비 중인 새로운 행사',
     cadence: '2026 하반기',
     status: 'coming-soon',
