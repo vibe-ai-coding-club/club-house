@@ -205,29 +205,41 @@ export function EventMarquee() {
   // 실제 활성 인덱스(0..n-1) — 인디케이터용
   const activeDot = ((index - n) % n + n) % n
 
-  const endDrag = useCallback(() => {
-    const d = dragRef.current
-    if (!d.active) return
-    d.active = false
-    setDragging(false)
+  const endDrag = useCallback(
+    (el: HTMLDivElement, pointerId: number) => {
+      const d = dragRef.current
+      if (!d.active) return
+      d.active = false
 
-    const offset = d.offset
-    const velocity = d.velocity
-    const cardStep = stepRef.current
-    const threshold = Math.max(48, Math.min(100, cardStep * 0.22))
-    const flick = 0.45 // px/ms
+      if (el.hasPointerCapture(pointerId)) {
+        el.releasePointerCapture(pointerId)
+      }
 
-    if (d.moved) didDragRef.current = true
+      // 탭(이동 없음)이면 클릭 네비게이션을 그대로 통과시킨다
+      if (!d.moved) {
+        pausedRef.current = hoverRef.current
+        return
+      }
 
-    setDragX(0)
-    d.offset = 0
+      didDragRef.current = true
+      setDragging(false)
 
-    if (offset < -threshold || velocity < -flick) next()
-    else if (offset > threshold || velocity > flick) prev()
+      const offset = d.offset
+      const velocity = d.velocity
+      const cardStep = stepRef.current
+      const threshold = Math.max(48, Math.min(100, cardStep * 0.22))
+      const flick = 0.45 // px/ms
 
-    // 마우스가 아직 위에 있으면 호버 일시정지 유지
-    pausedRef.current = hoverRef.current
-  }, [next, prev])
+      setDragX(0)
+      d.offset = 0
+
+      if (offset < -threshold || velocity < -flick) next()
+      else if (offset > threshold || velocity > flick) prev()
+
+      pausedRef.current = hoverRef.current
+    },
+    [next, prev]
+  )
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.button !== 0) return
@@ -245,9 +257,7 @@ export function EventMarquee() {
       moved: false,
     }
     didDragRef.current = false
-    pausedRef.current = true
-    setDragging(true)
-    e.currentTarget.setPointerCapture(e.pointerId)
+    // 클릭 경로에서는 setState/capture를 하지 않아 Link 네비게이션이 깨지지 않게 한다
   }
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -263,18 +273,19 @@ export function EventMarquee() {
 
     const offset = x - d.startX
     // 가로 제스처가 확실해진 뒤에만 드래그로 취급 (세로 스크롤 방해 최소화)
-    if (!d.moved && Math.abs(offset) < 10) return
-    d.moved = true
+    if (!d.moved) {
+      if (Math.abs(offset) < 10) return
+      d.moved = true
+      pausedRef.current = true
+      setDragging(true)
+      e.currentTarget.setPointerCapture(e.pointerId)
+    }
     d.offset = offset
     setDragX(offset)
   }
 
   const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!dragRef.current.active) return
-    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-      e.currentTarget.releasePointerCapture(e.pointerId)
-    }
-    endDrag()
+    endDrag(e.currentTarget, e.pointerId)
   }
 
   const onClickCapture = (e: React.MouseEvent) => {
