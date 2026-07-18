@@ -97,7 +97,7 @@ export const events: ClubEvent[] = [
     cardImage: '/images/events/study.webp',
     heroImage: '/images/events/study.webp',
     summary:
-      '스터디는 난이도에 따라 Creative / Develop 두 개의 트랙으로 운영되는 Vibe Coding Club의 대표 프로그램입니다. 매주 함께 학습하며 AI 시대의 개발을 익혀갑니다.',
+      '난이도에 따라 Creative / Develop 두 트랙으로 운영되는 주간 스터디입니다. 매주 함께 학습하며 AI 시대의 개발을 익혀갑니다.',
     info: [
       { label: '형태', value: '주간 스터디 (Creative / Develop)' },
       { label: '기간', value: '2026 상반기 프로그램' },
@@ -107,11 +107,23 @@ export const events: ClubEvent[] = [
       {
         heading: '이런 행사예요',
         body: [
-          '빠르게 변하는 AI 시대, 혼자보다 함께일 때 더 멀리, 그리고 즐겁게 나아갈 수 있습니다.',
-          'Creative 트랙과 Develop 트랙으로 나뉘어 각자의 수준과 관심사에 맞춰 참여할 수 있습니다.',
+          '클럽원이라면 누구나 다양한 주제와 방식의 스터디를 제안하고 함께할 수 있어요.',
+          '관심사와 수준에 맞는 트랙·주제를 골라 AI를 활용한 제작·개발을 함께 익혀 나가요.',
+        ],
+      },
+      {
+        heading: '진행 방식',
+        body: [
+          '최근에는 각자 한 주차 주제를 맡아 조사하고 발표·공유하는 방식으로 진행했어요.',
+          '주제 공유와 함께 실습도 구성해, 모두가 직접 따라 해보며 익혔어요.',
         ],
       },
     ],
+    cta: {
+      label: 'Discord에서 참여하기',
+      href: 'https://discord.gg/JNZYWnSuK8',
+      external: true,
+    },
   },
   {
     slug: 'second-half',

@@ -1,14 +1,8 @@
 'use client'
 
-import { JoinHero } from '@/components/events/study/join-hero'
 import { ActivitySchedule } from '@/components/events/study/activity-schedule'
 
-// 스터디 상세로 이전된 기존 메인의 모집 CTA + 주차별 일정
+/** 스터디 상세 전용: 주차별 활동 계획 표 */
 export function StudyExtras() {
-  return (
-    <div className="mt-14 space-y-16">
-      <JoinHero />
-      <ActivitySchedule />
-    </div>
-  )
+  return <ActivitySchedule />
 }
