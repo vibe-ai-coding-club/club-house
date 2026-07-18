@@ -112,13 +112,29 @@ export function EventMarquee() {
   // 활성 카드를 뷰포트 정중앙에 두기 위한 카드 폭/뷰포트 폭
   const [cardW, setCardW] = useState(0)
   const [viewW, setViewW] = useState(0)
+  // 드래그 중 손가락/마우스 오프셋 (px)
+  const [dragX, setDragX] = useState(0)
+  const [dragging, setDragging] = useState(false)
 
   const slides = Array.from({ length: n * copies }, (_, i) => events[i % n])
 
   const trackRef = useRef<HTMLDivElement>(null)
   const viewportRef = useRef<HTMLDivElement>(null)
   const pausedRef = useRef(false)
+  const hoverRef = useRef(false)
   const lockRef = useRef(false)
+  const dragRef = useRef({
+    active: false,
+    startX: 0,
+    lastX: 0,
+    lastT: 0,
+    velocity: 0,
+    offset: 0,
+    moved: false,
+  })
+  const didDragRef = useRef(false)
+  const stepRef = useRef(0)
+  stepRef.current = step
 
   // 카드 한 칸(너비 + gap) 측정 + 뷰포트를 채우기 위한 복제 세트 수 계산
   useIsomorphicLayoutEffect(() => {
@@ -189,6 +205,85 @@ export function EventMarquee() {
   // 실제 활성 인덱스(0..n-1) — 인디케이터용
   const activeDot = ((index - n) % n + n) % n
 
+  const endDrag = useCallback(() => {
+    const d = dragRef.current
+    if (!d.active) return
+    d.active = false
+    setDragging(false)
+
+    const offset = d.offset
+    const velocity = d.velocity
+    const cardStep = stepRef.current
+    const threshold = Math.max(48, Math.min(100, cardStep * 0.22))
+    const flick = 0.45 // px/ms
+
+    if (d.moved) didDragRef.current = true
+
+    setDragX(0)
+    d.offset = 0
+
+    if (offset < -threshold || velocity < -flick) next()
+    else if (offset > threshold || velocity > flick) prev()
+
+    // 마우스가 아직 위에 있으면 호버 일시정지 유지
+    pausedRef.current = hoverRef.current
+  }, [next, prev])
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return
+    // 컨트롤 버튼 등은 드래그 대상에서 제외
+    if ((e.target as HTMLElement).closest('button')) return
+
+    const now = performance.now()
+    dragRef.current = {
+      active: true,
+      startX: e.clientX,
+      lastX: e.clientX,
+      lastT: now,
+      velocity: 0,
+      offset: 0,
+      moved: false,
+    }
+    didDragRef.current = false
+    pausedRef.current = true
+    setDragging(true)
+    e.currentTarget.setPointerCapture(e.pointerId)
+  }
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = dragRef.current
+    if (!d.active) return
+
+    const now = performance.now()
+    const dt = Math.max(1, now - d.lastT)
+    const x = e.clientX
+    d.velocity = (x - d.lastX) / dt
+    d.lastX = x
+    d.lastT = now
+
+    const offset = x - d.startX
+    // 가로 제스처가 확실해진 뒤에만 드래그로 취급 (세로 스크롤 방해 최소화)
+    if (!d.moved && Math.abs(offset) < 10) return
+    d.moved = true
+    d.offset = offset
+    setDragX(offset)
+  }
+
+  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragRef.current.active) return
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    }
+    endDrag()
+  }
+
+  const onClickCapture = (e: React.MouseEvent) => {
+    if (!didDragRef.current) return
+    e.preventDefault()
+    e.stopPropagation()
+    didDragRef.current = false
+  }
+
   return (
     <section
       aria-roledescription="carousel"
@@ -196,17 +291,31 @@ export function EventMarquee() {
     >
       <div
         ref={viewportRef}
-        className="w-full overflow-hidden py-3"
-        onMouseEnter={() => (pausedRef.current = true)}
-        onMouseLeave={() => (pausedRef.current = false)}
+        className="w-full cursor-grab overflow-hidden py-3 touch-pan-y active:cursor-grabbing"
+        onMouseEnter={() => {
+          hoverRef.current = true
+          pausedRef.current = true
+        }}
+        onMouseLeave={() => {
+          hoverRef.current = false
+          if (!dragRef.current.active) pausedRef.current = false
+        }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+        onClickCapture={onClickCapture}
       >
         <div
           ref={trackRef}
           onTransitionEnd={handleTransitionEnd}
-          className="flex w-max gap-5"
+          className="flex w-max select-none gap-5"
           style={{
-            transform: `translateX(${viewW / 2 - cardW / 2 - index * step}px)`,
-            transition: animate ? 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)' : 'none',
+            transform: `translateX(${viewW / 2 - cardW / 2 - index * step + dragX}px)`,
+            transition:
+              dragging || !animate
+                ? 'none'
+                : 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
           }}
         >
           {slides.map((event, i) => (

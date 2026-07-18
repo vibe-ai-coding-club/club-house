@@ -95,13 +95,13 @@ export function EventDetail({ event, children }: EventDetailProps) {
   return (
     <div className="min-h-screen text-foreground" style={accentStyle}>
       {hasHero ? (
-        <div className="w-full px-4 pt-20 pb-16">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] lg:items-start lg:gap-16">
+        <div className="w-full px-4 pt-4 pb-16 lg:pt-12">
+          <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] lg:items-start lg:gap-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="lg:sticky lg:top-28"
+              className="min-w-0 lg:sticky lg:top-28"
             >
               {gallery.length > 1 ? (
                 <EventHeroGallery images={gallery} title={event.title} />
@@ -112,7 +112,7 @@ export function EventDetail({ event, children }: EventDetailProps) {
                     alt={gallery[0].alt || event.title}
                     width={1080}
                     height={1440}
-                    className="h-[32vh] w-full object-cover object-center lg:h-auto lg:object-contain"
+                    className="h-auto w-full object-cover object-center"
                   />
                 </div>
               )}

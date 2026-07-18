@@ -20,14 +20,18 @@ export function EventHeroGallery({ images, title }: EventHeroGalleryProps) {
   const reduce = useReducedMotion()
   const [[index, direction], setIndex] = useState<[number, number]>([0, 0])
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([])
+  const thumbStripRef = useRef<HTMLDivElement>(null)
   const count = images.length
   const current = images[index]
 
   useEffect(() => {
-    thumbRefs.current[index]?.scrollIntoView({
+    const thumb = thumbRefs.current[index]
+    const strip = thumbStripRef.current
+    if (!thumb || !strip) return
+    const target = thumb.offsetLeft - strip.clientWidth / 2 + thumb.offsetWidth / 2
+    strip.scrollTo({
+      left: Math.max(0, target),
       behavior: reduce ? 'auto' : 'smooth',
-      inline: 'center',
-      block: 'nearest',
     })
   }, [index, reduce])
 
@@ -54,35 +58,33 @@ export function EventHeroGallery({ images, title }: EventHeroGalleryProps) {
   }
 
   return (
-    <div className="space-y-3">
-      <div className="relative overflow-hidden rounded-2xl border border-border bg-background/40">
-        <div className="relative aspect-[1080/1440] w-full overflow-hidden">
-          <AnimatePresence mode="wait" custom={direction} initial={false}>
-            <motion.div
-              key={current.src}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: reduce ? 0.15 : 0.3, ease: 'easeOut' }}
-              drag={reduce || count < 2 ? false : 'x'}
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.12}
-              onDragEnd={onDragEnd}
-              className="absolute inset-0 cursor-grab active:cursor-grabbing"
-            >
-              <Image
-                src={current.src}
-                alt={current.alt || `${title} ${index + 1}`}
-                fill
-                sizes="(max-width: 1024px) 100vw, 24rem"
-                priority={index === 0}
-                className="object-cover object-center"
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
+    <div className="w-full min-w-0 space-y-3">
+      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-border bg-background/40">
+        <AnimatePresence mode="wait" custom={direction} initial={false}>
+          <motion.div
+            key={current.src}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: reduce ? 0.15 : 0.3, ease: 'easeOut' }}
+            drag={reduce || count < 2 ? false : 'x'}
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.12}
+            onDragEnd={onDragEnd}
+            className="absolute inset-0 cursor-grab touch-pan-y active:cursor-grabbing"
+          >
+            <Image
+              src={current.src}
+              alt={current.alt || `${title} ${index + 1}`}
+              fill
+              sizes="(max-width: 1024px) 100vw, 24rem"
+              priority={index === 0}
+              className="object-cover object-center"
+            />
+          </motion.div>
+        </AnimatePresence>
 
         {count > 1 && (
           <>
@@ -108,7 +110,8 @@ export function EventHeroGallery({ images, title }: EventHeroGalleryProps) {
 
       {count > 1 && (
         <div
-          className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          ref={thumbStripRef}
+          className="flex w-full gap-2 overflow-x-auto overscroll-x-contain pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           role="listbox"
           aria-label="카드뉴스 목록"
         >
