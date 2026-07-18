@@ -59,7 +59,14 @@ export const events: ClubEvent[] = [
     icon: '⚡',
     accent: '#4d8dff', // 전기 블루
     cardImage: '/images/events/vibe-code-rush.png',
-    heroImage: '/images/events/vibe-code-rush.png',
+    heroImage: '/images/events/vibe-code-rush/card-news/01.png',
+    gallery: Array.from({ length: 10 }, (_, i) => {
+      const n = String(i + 1).padStart(2, '0')
+      return {
+        src: `/images/events/vibe-code-rush/card-news/${n}.png`,
+        alt: `바이브 코드 러시 카드뉴스 ${i + 1}`,
+      }
+    }),
     summary:
       '미뤄두었던 사이드 프로젝트, 이제는 몰입할 시간입니다. 한 달에 한 번 모여 각자의 바이브코딩에 집중하고, 서로의 노하우까지 나누는 시간을 함께 만들어요.',
     info: [

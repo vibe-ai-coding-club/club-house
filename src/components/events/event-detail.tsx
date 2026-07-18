@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ClubEvent } from '@/types'
 import { Button } from '@/components/ui/button'
+import { EventHeroGallery } from '@/components/events/event-hero-gallery'
 
 interface EventDetailProps {
   event: ClubEvent
@@ -13,7 +14,13 @@ interface EventDetailProps {
 export function EventDetail({ event, children }: EventDetailProps) {
   const accentStyle = { '--event-accent': event.accent } as React.CSSProperties
 
-  const hasHero = Boolean(event.heroImage)
+  const gallery =
+    event.gallery && event.gallery.length > 0
+      ? event.gallery
+      : event.heroImage
+        ? [{ src: event.heroImage, alt: event.title }]
+        : []
+  const hasHero = gallery.length > 0
 
   const content = (
     <div>
@@ -94,15 +101,21 @@ export function EventDetail({ event, children }: EventDetailProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="overflow-hidden rounded-2xl border border-border lg:sticky lg:top-28"
+              className="lg:sticky lg:top-28"
             >
-              <Image
-                src={event.heroImage as string}
-                alt={event.title}
-                width={1081}
-                height={1440}
-                className="h-[32vh] w-full object-cover object-center lg:h-auto lg:object-contain"
-              />
+              {gallery.length > 1 ? (
+                <EventHeroGallery images={gallery} title={event.title} />
+              ) : (
+                <div className="overflow-hidden rounded-2xl border border-border">
+                  <Image
+                    src={gallery[0].src}
+                    alt={gallery[0].alt || event.title}
+                    width={1080}
+                    height={1440}
+                    className="h-[32vh] w-full object-cover object-center lg:h-auto lg:object-contain"
+                  />
+                </div>
+              )}
             </motion.div>
             {content}
           </div>

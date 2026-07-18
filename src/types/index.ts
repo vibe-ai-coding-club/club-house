@@ -37,6 +37,11 @@ export interface EventCTA {
   external?: boolean
 }
 
+export interface EventGalleryImage {
+  src: string
+  alt: string
+}
+
 export interface ClubEvent {
   slug: string
   title: string
@@ -60,6 +65,8 @@ export interface ClubEvent {
   cta?: EventCTA
   // 추후 추가될 행사 배너 이미지 경로 (현재는 미사용)
   heroImage?: string
+  // 상세 왼쪽 히어로 영역에서 넘기는 카드뉴스/갤러리
+  gallery?: EventGalleryImage[]
   // 캐러셀 카드 배경으로 사용할 이미지 경로 (없으면 accent 그라데이션)
   cardImage?: string
 }
