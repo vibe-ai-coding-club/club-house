@@ -1,5 +1,3 @@
-'use client'
-
 import { HeroSection } from '@/components/home/hero-section'
 import { EventMarquee } from '@/components/home/event-marquee'
 import { RecruitPanel } from '@/components/home/recruit-panel'

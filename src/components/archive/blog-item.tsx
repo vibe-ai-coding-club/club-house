@@ -1,5 +1,5 @@
 import Link from "next/link"
-import type { Blog } from "@/data/blogs"
+import type { Blog } from '@/types'
 
 interface BlogItemProps {
   blog: Blog

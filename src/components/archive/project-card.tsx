@@ -1,4 +1,4 @@
-import { Project } from "@/data/projects"
+import type { Project } from '@/types'
 import Link from "next/link"
 import { Logo } from "@/components/ui/logo"
 

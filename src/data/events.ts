@@ -1,15 +1,4 @@
-import { ClubEvent, EventStatus } from '@/types'
-
-// 상태 배지 표기 (라벨 + 스타일 키)
-export const eventStatusMeta: Record<
-  EventStatus,
-  { label: string; tone: 'brand' | 'info' | 'muted' }
-> = {
-  recruiting: { label: '모집중', tone: 'brand' },
-  ongoing: { label: '진행중', tone: 'brand' },
-  upcoming: { label: '예정', tone: 'info' },
-  'coming-soon': { label: 'Coming Soon', tone: 'muted' },
-}
+import { ClubEvent } from '@/types'
 
 export const events: ClubEvent[] = [
   {

@@ -1,5 +1,3 @@
-"use client"
-
 import { MemberHero } from "@/components/member/member-hero"
 import { MembersGrid } from "@/components/member/members-grid"
 

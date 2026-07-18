@@ -47,65 +47,6 @@ body {
   font-size: 14px; /* 기본 폰트 사이즈 14px */
 }
 
-/* 애니메이션을 위한 기본 스타일 */
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.animate-slide-up {
-  animation: slideUp 0.5s ease-out;
-}
-
-.animate-slide-in-left {
-  animation: slideInLeft 0.5s ease-out;
-}
-
-.animate-slide-in-right {
-  animation: slideInRight 0.5s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 /* 스크롤바 스타일링 */
 ::-webkit-scrollbar {
   width: 8px;
@@ -156,23 +97,6 @@ body {
 
 .hover\:text-brand-primary:hover {
   color: var(--brand-primary);
-}
-
-/* 폰트 weight 애니메이션 */
-@keyframes fontWeightPulse {
-  0% {
-    font-weight: 100;
-  }
-  50% {
-    font-weight: 700;
-  }
-  100% {
-    font-weight: 100;
-  }
-}
-
-.font-weight-animation {
-  animation: fontWeightPulse 10s ease-in-out infinite;
 }
 
 /* Bitcount Grid Single 폰트 클래스 */

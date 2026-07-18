@@ -1,15 +1,4 @@
-export interface BlogInput {
-  title: string
-  category: "develop" | "creative"
-  author: string
-  excerpt: string
-  date: string
-  href: string
-}
-
-export interface Blog extends BlogInput {
-  id: number
-}
+import type { Blog, BlogInput } from '@/types'
 
 const blogsData: BlogInput[] = [
   {
@@ -59,5 +48,3 @@ export const blogs: Blog[] = blogsData.map((blog, index) => ({
   ...blog,
   id: index + 1
 }))
-
-

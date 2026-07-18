@@ -71,22 +71,7 @@ export interface ClubEvent {
   cardImage?: string
 }
 
-export interface AnimationVariants {
-  hidden: {
-    opacity: number
-    y?: number
-    x?: number
-    scale?: number
-  }
-  visible: {
-    opacity: number
-    y?: number
-    x?: number
-    scale?: number
-    transition?: {
-      duration?: number
-      delay?: number
-      ease?: string
-    }
-  }
-}
+export type { Member } from './member'
+export type { Project, ProjectLink } from './project'
+export type { Blog, BlogInput } from './blog'
+export type { Notice } from './notice'
