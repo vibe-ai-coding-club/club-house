@@ -30,7 +30,7 @@ const objects: FloatingObject[] = [
     offset: '-mt-20 lg:-mt-32',
     y: [0, 22, 0],
     rotate: [0, 4, 0],
-    duration: 20,
+    duration: 14,
     delay: 0.1,
   },
   {
@@ -40,7 +40,7 @@ const objects: FloatingObject[] = [
     baseRotate: 'rotate-45',
     y: [0, -20, 0],
     rotate: [0, -4, 0],
-    duration: 18,
+    duration: 12,
     delay: 0.25,
   },
 ]
