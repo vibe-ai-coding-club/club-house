@@ -1,0 +1,26 @@
+---
+description: Tailwind 토큰·브랜드 컬러·타이포 규칙
+globs: src/**/*.{css,tsx},tailwind.config.ts
+alwaysApply: false
+---
+
+# Styling
+
+## 토큰
+
+- 색상/라디우스는 `globals.css` CSS 변수 → `tailwind.config.ts` 매핑을 사용한다.
+- 브랜드 lime: `bg-brand-primary` / `--brand-primary` (`#adff2f`)
+- 시맨틱: `text-foreground`, `text-muted-foreground`, `bg-background`, `border-border`
+- 하드코딩 hex는 행사 accent·불가피한 대비 색만 허용. 임의 purple 그라데이션/크림 배경 테마를 넣지 않는다.
+
+## 타이포·레이아웃
+
+- 기본 `fontSize.base` = 14px (의도적)
+- 본문: Geist Sans (`font-sans`). 브랜드 로고 텍스트: `font-bitcount`
+- 폭: `w-full px-4` (full-bleed + 패딩). 불필요한 max-width 카드 래퍼를 늘리지 않는다.
+
+## 작성 규칙
+
+- 클래스 조합은 `cn(...)` 사용
+- Prettier: no semi, single quotes, no trailing commas, printWidth 100
+- 새 전역 유틸은 `globals.css`에 두고, 일회성 스타일은 컴포넌트 className에 둔다

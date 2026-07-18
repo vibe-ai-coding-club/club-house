@@ -1,0 +1,20 @@
+---
+description: Conventional Commits 커밋 메시지 규칙
+alwaysApply: false
+---
+
+# Commit Messages
+
+형식: `<type>: <subject>` (+ 선택 body)
+
+- type: `feat`, `fix`, `refactor`, `chore`, `docs`, `style`, `test`
+- subject: 영문 50자 / 한글 30자 이내, 무엇을 바꿨는지 한 문장
+- 전체 3줄 이내. body는 필요할 때만 최대 2줄
+
+```text
+feat: hero 섹션 타이포그래피 축소
+fix: brand 버튼 텍스트 가독성 개선
+chore: unused rocket 컴포넌트 제거
+```
+
+피하기: `update`, `수정`처럼 모호한 메시지나 한 줄에 여러 맥락을 나열하는 메시지.

@@ -1,0 +1,29 @@
+---
+description: club-house 아키텍처·디렉터리·레이어 규칙
+alwaysApply: true
+---
+
+# Architecture
+
+정적 마케팅/커뮤니티 사이트. DB·API·env 없이 `src/data` + `public`으로 콘텐츠를 관리한다.
+
+## 레이어
+
+```
+src/app/          → 라우트만 (얇은 Server Component 조합)
+src/components/   → UI (feature 폴더 + ui/ + layout/)
+src/data/         → 정적 콘텐츠 배열/JSON
+src/config/       → site, navigation
+src/types/        → 도메인 타입
+src/lib/          → cn 등 유틸
+public/images/    → 정적 이미지
+```
+
+## 규칙
+
+- 페이지(`app/**/page.tsx`)는 섹션 조합만. 비즈니스 UI는 `components/{feature}/`에 둔다.
+- import는 `@/*` 별칭만 사용 (`@/components/...`, `@/data/...`). 같은 폴더 상대경로만 예외.
+- 콘텐츠 수정은 `src/data/*` 또는 `src/config/*`만. 이미지 경로는 `public/images/...`.
+- 새 행사는 `data/events.ts`에 `ClubEvent` 추가. `externalUrl`이 없으면 `/[slug]` SSG에 포함된다. 네비 순서는 `config/navigation.ts`의 `navEventOrder`를 확인한다.
+- `params`는 Next 15+ 패턴: `Promise<{ slug: string }>` → `await params`.
+- secrets/API 키/실제 서버 정보를 코드에 하드코딩하지 않는다.

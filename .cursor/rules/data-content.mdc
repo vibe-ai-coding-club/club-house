@@ -1,0 +1,31 @@
+---
+description: 정적 데이터·타입·콘텐츠 수정 규칙
+globs: src/data/**/*,src/config/**/*,src/types/**/*
+alwaysApply: false
+---
+
+# Data & Content
+
+API/DB 없음. 콘텐츠는 TypeScript/JSON 정적 모듈이다.
+
+## 파일 맵
+
+| 파일 | Export |
+|------|--------|
+| `data/events.ts` | `events`, `eventSlugs`, `getEventBySlug` |
+| `data/members.ts` | `members` |
+| `data/projects.ts` | `projects` |
+| `data/blogs.ts` | `blogs` |
+| `data/notices.ts` | `notices` |
+| `data/2026-plan.json` | 주차별 일정 |
+| `config/site.ts` | 사이트 메타·소셜 링크 |
+| `config/navigation.ts` | 메뉴 (events 기반) |
+
+## 규칙
+
+- 엔티티 타입은 `src/types/`에 두고 `types/index.ts`에서 re-export한다.
+- 배열에 항목 추가 시 기존 필드·카테고리(`'develop' | 'creative'`)를 맞춘다.
+- 멤버 이미지: `public/images/members/{id}.webp` (400×400 권장).
+- 행사 이미지: `public/images/events/...`
+- 행사 `accent` hex는 상세에서 CSS `--event-accent`로 주입된다.
+- 데이터 파일에서 UI/스타일을 정의하지 않는다. 표시는 컴포넌트 책임이다.
