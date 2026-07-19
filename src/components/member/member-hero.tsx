@@ -1,23 +1,20 @@
-"use client"
+'use client'
 
-import { motion } from "framer-motion"
+import { motion } from 'framer-motion'
 
 export function MemberHero() {
   return (
-    <motion.section
+    <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="min-h-[40vh] flex items-center justify-center"
+      transition={{ duration: 0.3 }}
     >
-      <div className="text-center space-y-6">
-        <h1 className="text-4xl lg:text-6xl tracking-tight text-foreground font-bitcount mb-6">
-          Member
-        </h1>
-        <p className="text-muted-foreground text-sm">
-          멤버들이 AI를 활용하여 생성한 프로필 이미지입니다.
-        </p>
-      </div>
-    </motion.section>
+      <h1 className="text-4xl font-bold leading-[1.15] tracking-tight text-foreground lg:text-5xl">
+        함께하는 사람들이에요
+      </h1>
+      <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
+        바이브 코딩 클럽 멤버를 소개해요.
+      </p>
+    </motion.div>
   )
 }

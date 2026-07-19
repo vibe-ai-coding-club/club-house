@@ -71,7 +71,7 @@ export interface ClubEvent {
   cardImage?: string
 }
 
-export type { Member } from './member'
+export type { Member, MemberType } from './member'
 export type { Project, ProjectLink } from './project'
 export type { Blog, BlogInput } from './blog'
 export type { Notice } from './notice'
