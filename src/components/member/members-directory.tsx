@@ -109,15 +109,28 @@ function MemberItem({ member }: { member: Member }) {
   )
 }
 
+function MemberMoreBadge({ count }: { count: number }) {
+  return (
+    <div
+      className="flex size-12 items-center justify-center rounded-full bg-muted text-xs font-medium text-muted-foreground sm:size-14 sm:text-sm"
+      aria-label={`${count}명 이상`}
+    >
+      {count}+
+    </div>
+  )
+}
+
 function MemberSection({
   type,
   title,
+  moreCount,
 }: {
   type: MemberType
   title: string
+  moreCount?: number
 }) {
   const people = getMembersByType(type)
-  if (people.length === 0) return null
+  if (people.length === 0 && !moreCount) return null
 
   return (
     <FadeIn>
@@ -130,6 +143,9 @@ function MemberSection({
           {people.map((member) => (
             <MemberItem key={member.id} member={member} />
           ))}
+          {moreCount != null && moreCount > 0 && (
+            <MemberMoreBadge count={moreCount} />
+          )}
         </div>
       </section>
     </FadeIn>

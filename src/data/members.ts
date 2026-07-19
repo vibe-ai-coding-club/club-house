@@ -4,6 +4,8 @@ import type { Member, MemberType } from '@/types'
 export const memberSections: {
   type: MemberType
   title: string
+  /** 프로필 미등록 인원 수 (예: 딸깍톤 참가자) */
+  moreCount?: number
 }[] = [
   {
     type: 'organizer',
@@ -12,6 +14,7 @@ export const memberSections: {
   {
     type: 'member',
     title: '함께하고 있어요',
+    moreCount: 70,
   },
 ]
 
