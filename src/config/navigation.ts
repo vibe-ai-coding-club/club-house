@@ -20,11 +20,11 @@ export const mainNav: NavItem[] = [
     external: Boolean(event.externalUrl),
   })),
   {
-    title: "Archive",
+    title: "아카이브",
     href: "/archive",
   },
   {
-    title: "Member",
+    title: "멤버",
     href: "/member",
   },
   {

@@ -16,7 +16,6 @@ API/DB 없음. 콘텐츠는 TypeScript/JSON 정적 모듈이다.
 | `data/members.ts` | `members` |
 | `data/projects.ts` | `projects` |
 | `data/blogs.ts` | `blogs` |
-| `data/notices.ts` | `notices` |
 | `data/2026-plan.json` | 주차별 일정 |
 | `config/site.ts` | 사이트 메타·소셜 링크 |
 | `config/navigation.ts` | 메뉴 (events 기반) |
